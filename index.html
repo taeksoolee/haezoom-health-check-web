@@ -1,0 +1,46 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthTest</title>
+  <style>
+    .main-section {
+      width: 800px;
+      margin: auto;
+      margin-top: 10px;
+    }
+
+    .title {
+      text-align: center;
+    }
+
+    #all-check-btn {
+      display: block;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <section class="main-section">
+      <h2 class="title">☀️ Haezoom Web Stie Information!</h2>
+
+      <custom-button id="all-check-btn"> All Site Check </custom-button>
+      <div id="health-check-list"></div>
+    </section>
+  </section>
+
+  <script defer src="./classes/UUIDGenerator.js"></script>
+
+  <script defer src="./components/base/StatelessElement.js"></script>
+  <script defer src="./components/base/StateElement.js"></script>
+  
+  <script defer src="./components/stateless/CustomButton.js"></script>
+  <script defer src="./components/stateless/TextButton.js"></script>
+  <script defer src="./components/state/HealthCheckItem.js"></script>
+
+  <script defer src="./script.js"></script>
+</body>
+</html>
