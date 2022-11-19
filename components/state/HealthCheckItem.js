@@ -40,8 +40,8 @@ class HealthCheckItem extends StateElement {
     });
   };
 
-  async _testUrl() {
-    if(!this.props.url || this.props.url === 'undefined') {
+  async _checkUrl() {
+    if(!this.props.url) {
       return;
     }
 
@@ -129,7 +129,7 @@ class HealthCheckItem extends StateElement {
       `,
       handlers: {
         [checkButtonId]: {
-          click: this._testUrl
+          click: this._checkUrl
         },
         [toggleButtonId]: {
           click: () => {
@@ -142,8 +142,9 @@ class HealthCheckItem extends StateElement {
     };
   }
 
+  // public method
   click() {
-    this._testUrl();
+    this._checkUrl();
   }
 }
 

@@ -1,0 +1,38 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "health-check-item",
+      "description": "Helath Check Item. You should use it as in `<health-check-item *label *url *sites />`.",
+      "attributes": [
+        {
+          "name": "label",
+          "description": "Set State Label."
+        },
+        {
+          "name": "url",
+          "description": "Set State Url."
+        },
+        {
+          "name": "sites",
+          "description": "Set State Sites. This Values ​​must be written separated by comma(,)."
+        }
+      ],
+      "references": [
+        {
+          "name": "Health Check Item",
+          "url": "https://getbootstrap.com/docs/4.0/components/buttons/"
+        }
+      ]
+    },
+    {
+      "name": "all-check-button"
+    },
+    {
+      "name": "text-button"
+    },
+    {
+      "name": "custom-button"
+    }
+  ]
+}

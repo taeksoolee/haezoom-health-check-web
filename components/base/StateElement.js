@@ -1,4 +1,15 @@
 class StateElement extends HTMLElement {
+  /**
+   * 할일
+   * @typedef {Object} Config
+   * @property {any} state - 할일 id
+   * @property {string} styleSheet - 할일 내용
+   */
+
+  /**
+   * 
+   * @param {Config} config
+   */
   constructor(config) {
     super();
     this.attachShadow({
@@ -62,6 +73,26 @@ class StateElement extends HTMLElement {
           el.addEventListener(`${event}`, handler[event].bind(this));
         }
       }
+    }
+  }
+
+  /**
+   * @typedef {Object} Handlers
+   */
+
+  /**
+   * @typedef {Object} RenderItem
+   * @property {string} html
+   * @property {Handlers} handlers
+   */
+
+  /**
+   * @abstract
+   * @return {RenderItem}
+   */
+  redner() {
+    return {
+
     }
   }
 }
