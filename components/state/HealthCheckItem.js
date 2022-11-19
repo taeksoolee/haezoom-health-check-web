@@ -41,12 +41,15 @@ class HealthCheckItem extends StateElement {
   };
 
   async _testUrl() {
+    if(!this.props.url || this.props.url === 'undefined') {
+      return;
+    }
+
     this.setState({
       loading: true,
     });
-    
-    const s = Date.now();
-    let e;
+
+    window.logger.startDuration('fetch url');
     let result = true;
     try {
       await fetch(this.props.url, {
@@ -55,15 +58,12 @@ class HealthCheckItem extends StateElement {
           'Content-Type': 'text/plain'
         }
       });
-
-      e = Date.now()
     } catch(e) {
       result = false;
-      e = Date.now()
     } finally {
       this.setState({
         loading: false,
-        returnTime: e -s,
+        returnTime: window.logger.endDuration('fetch url'),
         result,
       });
     }
@@ -79,57 +79,63 @@ class HealthCheckItem extends StateElement {
     const checkButtonId = uuidGenerator.get('check-button');
     const toggleButtonId = uuidGenerator.get('toggle-button');
 
-    const checkButton = !this.state.loading 
-      ? `<custom-button ${checkButtonId}>Check</custom-button>`
-      : '<custom-button disabled>loading...</custom-button>';
-    const resultSpan = this.state.result !== null 
+    const CheckButton = this.props.url ? 
+      !this.state.loading 
+        ? `<custom-button ${checkButtonId}>Check</custom-button>`
+        : '<custom-button disabled>loading...</custom-button>'
+      : '';
+
+
+    const ToggleButton = this.props.sites
+      // ?`<text-button ${toggleButtonId}>${this.state.toggleFlag ? '▼': '►'}</text-button>`
+      ?`<text-button ${toggleButtonId}>${this.state.toggleFlag ? 'Close': 'Detail'}</text-button>`
+      : '';
+    
+    const ResultSpan = this.state.result !== null 
       ? `<span>${this.state.result ? '정상' : '비정상'}(${this.state.returnTime}ms)</span>`
       : '';
 
-    console.log(this.props);
+    const SiteAnchor = this.props.url ? `<a href="${this.props.url}" target="_blank">Site</a>` : '';
+
+    const List = this.state.toggleFlag && this.props.sites ? `
+      <div class="sites-container">
+        ${this.props.sites.split(',').map(url => `
+          <div>
+            &nbsp;&nbsp;&nbsp;<a href="${url}" target="_blank">${url}</a>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
 
     return {
       html: `
         <div class="container">
           <div class="flex">
             <label>
-              <a href="${this.props.url}" target="_blank">Site</a>&nbsp;&nbsp;&nbsp;
+              ${SiteAnchor}&nbsp;&nbsp;&nbsp;
               ${this.props.label ?? ''}
-              <text-button ${toggleButtonId}>${this.state.toggleFlag ? '▼': '►'}</text-button>
+              ${ToggleButton}
             </label>
 
             <div class="result-box">
-              ${resultSpan}
+              ${ResultSpan}
             </div>
 
-            ${checkButton}
+            ${CheckButton}
           </div>
-          ${this.state.toggleFlag && this.props.sites ? `
-          <div class="sites-container">
-            ${this.props.sites.split(',').map(url => `
-              <div>
-                &nbsp;&nbsp;&nbsp;<a href="${url}" target="_blank">${url}</a>
-              </div>
-            `).join('')}
-          </div>
-          ` : ''}
-          
+          ${List}
           ${this.childrenHTML}
         </div>
       `,
-      options: {
+      handlers: {
         [checkButtonId]: {
-          handlers: {
-            click: this._testUrl
-          }
+          click: this._testUrl
         },
         [toggleButtonId]: {
-          handlers: {
-            click: () => {
-              this.setState({
-                toggleFlag: !this.state.toggleFlag,
-              })
-            }
+          click: () => {
+            this.setState({
+              toggleFlag: !this.state.toggleFlag,
+            })
           }
         }
       }

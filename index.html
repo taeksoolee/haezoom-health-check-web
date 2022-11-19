@@ -27,11 +27,17 @@
     <section class="main-section">
       <h2 class="title">☀️ Haezoom Web Stie Information!</h2>
 
-      <custom-button id="all-check-btn"> All Site Check </custom-button>
+      <div style="display: flex; justify-content: space-between;">
+        <a href="https://docs.google.com/spreadsheets/d/1k-BALqx5G5sdIhqYJGwFfIqOLup-Tb7Uw1zuNczUm1Y/edit?pli=1#gid=609634781" target="_blank">
+          Google Sheet
+        </a>
+        <custom-button id="all-check-btn"> All Site Check </custom-button>
+      </div>
       <div id="health-check-list"></div>
     </section>
   </section>
 
+  <script defer src="./classes/Logger.js"></script>
   <script defer src="./classes/UUIDGenerator.js"></script>
 
   <script defer src="./components/base/StatelessElement.js"></script>
@@ -41,6 +47,7 @@
   <script defer src="./components/stateless/TextButton.js"></script>
   <script defer src="./components/state/HealthCheckItem.js"></script>
 
+  <script defer src="./data.js"></script>
   <script defer src="./script.js"></script>
 </body>
 </html>

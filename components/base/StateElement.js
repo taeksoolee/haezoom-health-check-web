@@ -47,22 +47,19 @@ class StateElement extends HTMLElement {
     }
 
     const {
-      html, options
+      html, handlers
     } = this.render();
     this.shadowRoot.innerHTML = `${html}${this._styleSheet.outerHTML}`;
 
-    for(const id in options) {
+    for(const id in handlers) {
       const el = this.shadowRoot.querySelector(`[${id}]`);
 
       if(!el) continue;
 
-      const option = options[id];
-
-      if(option?.handlers) {
-        const handlers = option?.handlers;
-        
-        for(const event in handlers) {
-          el.addEventListener(`${event}`, handlers[event].bind(this));
+      const handler = handlers[id];
+      if(handler) {
+        for(const event in handler) {
+          el.addEventListener(`${event}`, handler[event].bind(this));
         }
       }
     }
