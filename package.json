@@ -1,0 +1,42 @@
+{
+  "name": "health-check-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "data.js",
+  "scripts": {
+    "g:version": "gulp --version",
+    "prod": "export NODE_ENV=production && gulp",
+    "dev": "export NODE_ENV=development && gulp",
+    "g:js": "gulp js",
+    "g:css": "gulp css",
+    "g:watch": "gulp watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taeksoolee/health-check-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taeksoolee/health-check-web/issues"
+  },
+  "homepage": "https://github.com/taeksoolee/health-check-web#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-javascript-obfuscator": "^1.1.6",
+    "gulp-minify": "^3.1.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "sass": "^1.56.1"
+  },
+  "dependencies": {}
+}

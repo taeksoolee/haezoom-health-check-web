@@ -29,3 +29,5 @@ class Logger {
 }
 
 window.logger = new Logger();
+
+console.log('logger');

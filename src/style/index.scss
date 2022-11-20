@@ -1,0 +1,131 @@
+@import "./variables";
+
+/*
+  colors
+*/
+$theme-colors: (
+  "primary": $primary-color, 
+  "secondary": $secondary-color, 
+  "success": $success-color, 
+  "danger": $danger-color, 
+  "warning": $warning-color, 
+  "info": $info-color, 
+  "light": $light-color, 
+  "dark": $dark-color
+);
+
+@each $name, $color in $theme-colors {
+  @for $i from 1 to 100 {
+    .#{$name}-#{$i}-color {
+      color: desaturate($color, $i);
+    }
+  }  
+}
+
+/*
+  spacing
+*/
+@mixin spacing-style($i, $style, $short-text, $long-text-list) {
+  &#{$short-text}-#{$i} {
+    @each $long-text in $long-text-list {
+      #{$style}#{if($long-text == "", "", #{"-" + $long-text})}: $spacing * $i;
+    }
+  }
+}
+
+@mixin spacing-item($style, $short-style, $i) {
+  .#{$short-style} {
+    @include spacing-style($i, $style, "", (""));
+    @include spacing-style($i, $style, "t", ("top"));
+    @include spacing-style($i, $style, "r", ("right"));
+    @include spacing-style($i, $style, "l", ("left"));
+    @include spacing-style($i, $style, "b", ("bottom"));
+    @include spacing-style($i, $style, "x", ("left", "right"));
+    @include spacing-style($i, $style, "y", ("top", "bottom"));
+  }
+}
+
+@for $i from 1 to 51 {
+  @include spacing-item("margin", "m", $i);
+  @include spacing-item("padding", "p", $i);
+}
+
+/*
+  form elements
+*/
+$form-item-width: 300px;
+$form-item-border-width: 1px;
+$form-item-padding: 10px;
+$form-item-border-radius: 5px;
+
+@mixin input-style($main-color, $sub-color, $text-color) {
+  display: block;
+  border: $form-item-border-width solid $sub-color;
+  padding: $form-item-padding;
+  outline: none;
+  border-radius: $form-item-border-radius;
+
+  color: $text-color;
+
+  &:focus {
+    border: $form-item-border-width solid $main-color;
+  }
+}
+
+input {
+  min-width: $form-item-width - ($form-item-border-width * 2) - ($form-item-padding * 2);
+  @include input-style($primary-color, $secondary-color, $dark-color);
+}
+
+select {
+  min-width: $form-item-width;
+  @include input-style($primary-color, $secondary-color, $dark-color);
+}
+
+button {
+  display: block;
+  background-color: $primary-color;
+  color: $light-color;
+  padding: $form-item-padding;
+  min-width: $form-item-width;
+
+  .secondary {
+    background-color: $primary-color;
+  }
+  
+  @each $name, $color in $theme-colors {
+    .#{$name} {
+      background-color: $color;
+    }
+  }
+}
+
+/*
+  flex
+*/  
+.flex {
+  display: flex !important;
+
+  &.center {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+/*
+  headline
+*/
+@for $i from 1 to 7 {
+  h#{$i} {
+    font-size: (7 - $i) * 6px + 14px;
+    padding: 0;
+    margin: {
+      top: 0;
+      bottom: $i * 4px + 4px;
+    }
+  }
+}
+
+/*
+  animation
+*/
